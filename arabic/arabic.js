@@ -365,7 +365,9 @@ gsap.fromTo(".project-card",
 
 /* Our Work Typing Animation */
 const typedText = document.querySelector(".typed-text");
-const text = "اعمالنا";
+const text = "أعمالنا";
+
+typedText.textContent = "";
 
 let index = 0;
 let isDeleting = false;

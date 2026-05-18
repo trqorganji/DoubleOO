@@ -2558,44 +2558,37 @@ body.page-leaving .page-transition {
     text-align: center;
   }
 }
-/* ENGLISH VIDEO SECTION MOBILE FIX */
+/* FIX ENGLISH VIDEO TITLE ON MOBILE ONLY */
 @media (max-width: 768px) {
-
   .statement-content {
-    padding: 0 1.5rem;
-    text-align: left;
+    width: 100%;
+    max-width: none;
+    padding: 0 24px;
     align-items: flex-start;
+    text-align: left;
   }
 
   .statement-video-text {
-    width: 100%;
-    max-width: 340px;
+    display: block !important;
+    width: 100% !important;
+    max-width: 360px !important;
 
-    font-size: clamp(3rem, 13vw, 4.8rem);
+    font-size: clamp(2.8rem, 11vw, 4rem) !important;
+    line-height: 1 !important;
+    letter-spacing: -0.05em !important;
 
-    line-height: 0.92;
-    letter-spacing: -0.055em;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    word-break: keep-all;
-    overflow-wrap: normal;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
   }
 
   .statement-video-text span {
-    display: block;
-    width: 100%;
+    display: block !important;
+    width: auto !important;
+    white-space: nowrap !important;
   }
 
   .statement-subtitle {
-    width: 100%;
-    max-width: 320px;
-
-    font-size: 0.95rem;
-    line-height: 1.8;
-
-    margin-top: 1.5rem;
+    max-width: 330px;
   }
 }

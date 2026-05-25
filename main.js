@@ -902,8 +902,10 @@ styleModal?.addEventListener("click", (e) => {
   }
 });
 
-/* Premium AI Scan Text Reveal */
+/* Premium AI Scan Text Reveal - Desktop Only */
 window.addEventListener("load", () => {
+  if (window.innerWidth <= 768) return;
+
   const lines = document.querySelectorAll(".statement-video-text .en-scan");
   const section = document.querySelector(".statement-video-section");
 
@@ -932,7 +934,6 @@ window.addEventListener("load", () => {
           opacity: 1,
           y: 0,
           filter: "blur(0px)",
-          textShadow: "0 0 0 rgba(255,255,255,0)",
           stagger: {
             each: 0.025,
             from: "random"
@@ -948,7 +949,6 @@ window.addEventListener("load", () => {
 
   observer.observe(section);
 });
-
 /* Refresh GSAP on mobile resize/orientation */
 window.addEventListener("resize", () => {
   ScrollTrigger.refresh(true);

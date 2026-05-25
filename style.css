@@ -2650,3 +2650,16 @@ body.page-leaving .page-transition {
     white-space: normal !important;
   }
 }
+@media (max-width: 768px) {
+  .statement-video-text {
+    line-height: 1.08 !important;
+    padding-bottom: 0.18em !important;
+    overflow: visible !important;
+  }
+
+  .statement-video-text > span {
+    line-height: 1.08 !important;
+    padding-bottom: 0.08em !important;
+    overflow: visible !important;
+  }
+}

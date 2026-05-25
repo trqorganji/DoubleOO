@@ -2663,3 +2663,21 @@ body.page-leaving .page-transition {
     overflow: visible !important;
   }
 }
+@media (max-width: 768px) {
+  .statement-video-section,
+  .statement-content {
+    overflow: visible !important;
+  }
+
+  .statement-video-text {
+    overflow: visible !important;
+    padding-bottom: 18px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .statement-video-text > span {
+    display: block !important;
+    overflow: visible !important;
+    padding-bottom: 10px !important;
+  }
+}

@@ -2633,3 +2633,20 @@ body.page-leaving .page-transition {
     writing-mode: horizontal-tb !important;
   }
 }
+
+@media (max-width: 768px) {
+  .statement-video-text {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    font-size: clamp(3rem, 14vw, 4.8rem) !important;
+    line-height: 0.95 !important;
+    letter-spacing: -0.05em !important;
+  }
+
+  .statement-video-text > span {
+    display: block !important;
+    white-space: normal !important;
+  }
+}

@@ -2701,3 +2701,16 @@ html[dir="rtl"] .statement-video-text > span {
     object-fit: cover;
   }
 }
+@media (max-width: 768px) {
+  html[dir="rtl"] .statement-video-text {
+    line-height: 1.18 !important;
+    padding-bottom: 0.22em !important;
+    overflow: visible !important;
+  }
+
+  html[dir="rtl"] .statement-video-text > span {
+    line-height: 1.18 !important;
+    padding-bottom: 0.1em !important;
+    overflow: visible !important;
+  }
+}

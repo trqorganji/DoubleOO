@@ -904,7 +904,7 @@ styleModal?.addEventListener("click", (e) => {
 
 /* Premium AI Scan Text Reveal */
 window.addEventListener("load", () => {
-  const lines = document.querySelectorAll(".statement-video-text span");
+  const lines = document.querySelectorAll(".statement-video-text .en-scan");
   const section = document.querySelector(".statement-video-section");
 
   if (!lines.length || !section) return;

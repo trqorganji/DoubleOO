@@ -3038,3 +3038,13 @@ body.concierge-open {
     width: 100%;
   }
 }
+.oo-concierge-button {
+  position: fixed !important;
+  left: 28px !important;
+  right: auto !important;
+  bottom: 28px !important;
+  z-index: 999999 !important;
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}

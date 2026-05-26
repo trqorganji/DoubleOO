@@ -2611,3 +2611,30 @@ body.page-leaving .page-transition {
     text-align: center;
   }
 }
+
+/* DESKTOP FIX - ENGLISH HERO */
+@media (min-width: 769px) {
+
+  .statement-content {
+    width: min(100%, 1100px);
+    margin: 0 auto;
+  }
+
+  .statement-video-text {
+    font-size: clamp(4rem, 8vw, 8.5rem) !important;
+    line-height: 0.9 !important;
+    letter-spacing: -0.07em !important;
+
+    max-width: 1100px !important;
+    margin: 0 auto;
+
+    overflow: visible !important;
+  }
+
+  .statement-video-text > span {
+    display: block !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+  }
+
+}

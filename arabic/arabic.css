@@ -2732,3 +2732,30 @@ html[dir="rtl"] .statement-video-text > span {
     padding-bottom: 10px !important;
   }
 }
+
+/* DESKTOP FIX - ARABIC HERO */
+@media (min-width: 769px) {
+
+  html[dir="rtl"] .statement-content {
+    width: min(100%, 1100px);
+    margin: 0 auto;
+  }
+
+  html[dir="rtl"] .statement-video-text {
+    font-size: clamp(4rem, 8vw, 8rem) !important;
+    line-height: 1 !important;
+    letter-spacing: -0.03em !important;
+
+    max-width: 1100px !important;
+    margin: 0 auto;
+
+    overflow: visible !important;
+  }
+
+  html[dir="rtl"] .statement-video-text > span {
+    display: block !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+  }
+
+}

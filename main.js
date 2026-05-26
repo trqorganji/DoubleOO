@@ -959,3 +959,195 @@ window.addEventListener("orientationchange", () => {
     ScrollTrigger.refresh(true);
   }, 400);
 });
+
+/* ================================
+   OO CONCIERGE
+================================ */
+
+const concierge = document.getElementById("conciergePanel");
+const openConcierge = document.getElementById("openConcierge");
+const closeConcierge = document.getElementById("closeConcierge");
+
+const questionTitle = document.getElementById("questionTitle");
+const choicesContainer = document.getElementById("choicesContainer");
+const conciergeProgressFill = document.getElementById("progressFill");
+
+const conciergeBox = document.querySelector(".concierge-box");
+
+const conciergeQuestions = [
+  {
+    question: "What are we building today?",
+    choices: ["Luxury Brand Website", "Automotive Experience", "Corporate Presence", "Creative Portfolio"]
+  },
+  {
+    question: "How should people feel when they open it?",
+    choices: ["Luxury & Exclusive", "Bold & Aggressive", "Minimal & Elegant", "Futuristic & Digital"]
+  },
+  {
+    question: "What should your audience experience first?",
+    choices: ["Cinematic Intro", "Product Showcase", "Booking Flow", "Interactive Storytelling"]
+  },
+  {
+    question: "Which level of digital presence are we creating?",
+    choices: ["Essential Presence", "Premium Experience", "Full Brand Ecosystem"]
+  },
+  {
+    question: "When should the world see this?",
+    choices: ["ASAP", "This Month", "1–2 Months", "Still Exploring"]
+  }
+];
+
+let conciergeStep = 0;
+let conciergeAnswers = [];
+
+function openConciergeModal() {
+  concierge.classList.add("active");
+  document.body.classList.add("concierge-open");
+
+  if (typeof lenis !== "undefined") {
+    lenis.stop();
+  }
+}
+
+function closeConciergeModal() {
+  concierge.classList.remove("active");
+  document.body.classList.remove("concierge-open");
+
+  if (typeof lenis !== "undefined") {
+    lenis.start();
+  }
+}
+
+function animateConciergeChange() {
+  questionTitle.classList.remove("concierge-reveal");
+  choicesContainer.classList.remove("concierge-reveal");
+
+  void questionTitle.offsetWidth;
+
+  questionTitle.classList.add("concierge-reveal");
+  choicesContainer.classList.add("concierge-reveal");
+}
+
+function renderConciergeQuestion() {
+  const current = conciergeQuestions[conciergeStep];
+
+  questionTitle.textContent = current.question;
+  choicesContainer.innerHTML = "";
+
+  current.choices.forEach((choice) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "concierge-choice";
+    button.textContent = choice;
+
+    button.onclick = () => {
+      conciergeAnswers.push({
+        question: current.question,
+        answer: choice
+      });
+
+      conciergeStep++;
+
+      if (conciergeStep < conciergeQuestions.length) {
+        renderConciergeQuestion();
+      } else {
+        renderThinkingMoment();
+      }
+    };
+
+    choicesContainer.appendChild(button);
+  });
+
+  conciergeProgressFill.style.width =
+    `${((conciergeStep + 1) / conciergeQuestions.length) * 100}%`;
+
+  animateConciergeChange();
+}
+
+function renderThinkingMoment() {
+  questionTitle.textContent = "Analyzing your digital direction...";
+
+  choicesContainer.innerHTML = `
+    <div class="concierge-thinking">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  `;
+
+  conciergeProgressFill.style.width = "100%";
+  animateConciergeChange();
+
+  setTimeout(renderConciergeSummary, 1200);
+}
+
+function renderConciergeSummary() {
+  questionTitle.textContent = "Your digital direction is ready.";
+
+  choicesContainer.innerHTML = `
+    <div class="concierge-summary">
+      ${conciergeAnswers.map(item => `
+        <div class="summary-row">
+          <span>${item.question}</span>
+          <strong>${item.answer}</strong>
+        </div>
+      `).join("")}
+
+      <div class="concierge-summary-actions">
+        <button type="button" class="concierge-choice concierge-whatsapp" id="sendConciergeWhatsapp">
+          Continue to WhatsApp
+        </button>
+
+        <button type="button" class="concierge-choice concierge-reset" id="resetConcierge">
+          Start Again
+        </button>
+
+        <button type="button" class="concierge-choice concierge-cancel" id="cancelConcierge">
+          Close
+        </button>
+      </div>
+    </div>
+  `;
+
+  conciergeProgressFill.style.width = "100%";
+  animateConciergeChange();
+
+  document.getElementById("sendConciergeWhatsapp").onclick = () => {
+    const message = `
+OO Concierge — New Project Direction
+
+${conciergeAnswers.map(item => `${item.question}: ${item.answer}`).join("\n")}
+
+Generated via Double OO Concierge.
+    `;
+
+    window.open(
+      `https://wa.me/966503355696?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
+  };
+
+  document.getElementById("resetConcierge").onclick = () => {
+    conciergeStep = 0;
+    conciergeAnswers = [];
+    conciergeProgressFill.style.width = "0%";
+    renderConciergeQuestion();
+  };
+
+  document.getElementById("cancelConcierge").onclick = closeConciergeModal;
+}
+
+openConcierge?.addEventListener("click", openConciergeModal);
+closeConcierge?.addEventListener("click", closeConciergeModal);
+
+conciergeBox?.addEventListener("wheel", (e) => {
+  e.stopPropagation();
+}, { passive: true });
+
+conciergeBox?.addEventListener("touchmove", (e) => {
+  e.stopPropagation();
+}, { passive: true });
+
+if (questionTitle && choicesContainer && conciergeProgressFill) {
+  renderConciergeQuestion();
+}

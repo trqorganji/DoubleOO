@@ -968,3 +968,194 @@ window.addEventListener("orientationchange", () => {
     ScrollTrigger.refresh(true);
   }, 400);
 });
+/* ================================
+   OO CONCIERGE ARABIC
+================================ */
+
+const concierge = document.getElementById("conciergePanel");
+const openConcierge = document.getElementById("openConcierge");
+const closeConcierge = document.getElementById("closeConcierge");
+
+const questionTitle = document.getElementById("questionTitle");
+const choicesContainer = document.getElementById("choicesContainer");
+const conciergeProgressFill = document.getElementById("progressFill");
+
+const conciergeBox = document.querySelector(".concierge-box");
+
+const conciergeQuestions = [
+  {
+    question: "ماذا نبني اليوم؟",
+    choices: ["موقع علامة فاخرة", "تجربة سيارات", "حضور شركة احترافي", "معرض أعمال إبداعي"]
+  },
+  {
+    question: "ما الشعور الذي تريد أن يصل للزائر عند فتح الموقع؟",
+    choices: ["فخامة وحصرية", "قوة وجرأة", "بساطة وأناقة", "مستقبلي ورقمي"]
+  },
+  {
+    question: "ما أول تجربة تريد أن يراها جمهورك؟",
+    choices: ["مقدمة سينمائية", "عرض المنتجات", "تجربة حجز", "سرد تفاعلي"]
+  },
+  {
+    question: "أي مستوى من الحضور الرقمي نريد بناءه؟",
+    choices: ["حضور أساسي", "تجربة فاخرة", "منظومة رقمية كاملة"]
+  },
+  {
+    question: "متى تريد أن يرى العالم هذا المشروع؟",
+    choices: ["في أقرب وقت", "هذا الشهر", "خلال شهر إلى شهرين", "ما زلت أستكشف"]
+  }
+];
+
+let conciergeStep = 0;
+let conciergeAnswers = [];
+
+function openConciergeModal() {
+  concierge.classList.add("active");
+  document.body.classList.add("concierge-open");
+
+  if (typeof lenis !== "undefined") {
+    lenis.stop();
+  }
+}
+
+function closeConciergeModal() {
+  concierge.classList.remove("active");
+  document.body.classList.remove("concierge-open");
+
+  if (typeof lenis !== "undefined") {
+    lenis.start();
+  }
+}
+
+function animateConciergeChange() {
+  questionTitle.classList.remove("concierge-reveal");
+  choicesContainer.classList.remove("concierge-reveal");
+
+  void questionTitle.offsetWidth;
+
+  questionTitle.classList.add("concierge-reveal");
+  choicesContainer.classList.add("concierge-reveal");
+}
+
+function renderConciergeQuestion() {
+  const current = conciergeQuestions[conciergeStep];
+
+  questionTitle.textContent = current.question;
+  choicesContainer.innerHTML = "";
+
+  current.choices.forEach((choice) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "concierge-choice";
+    button.textContent = choice;
+
+    button.onclick = () => {
+      conciergeAnswers.push({
+        question: current.question,
+        answer: choice
+      });
+
+      conciergeStep++;
+
+      if (conciergeStep < conciergeQuestions.length) {
+        renderConciergeQuestion();
+      } else {
+        renderThinkingMoment();
+      }
+    };
+
+    choicesContainer.appendChild(button);
+  });
+
+  conciergeProgressFill.style.width =
+    `${((conciergeStep + 1) / conciergeQuestions.length) * 100}%`;
+
+  animateConciergeChange();
+}
+
+function renderThinkingMoment() {
+  questionTitle.textContent = "يتم تحليل اتجاهك الرقمي...";
+
+  choicesContainer.innerHTML = `
+    <div class="concierge-thinking">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  `;
+
+  conciergeProgressFill.style.width = "100%";
+  animateConciergeChange();
+
+  setTimeout(renderConciergeSummary, 1200);
+}
+
+function renderConciergeSummary() {
+  questionTitle.textContent = "اتجاهك الرقمي جاهز.";
+
+  choicesContainer.innerHTML = `
+    <div class="concierge-summary">
+      ${conciergeAnswers.map(item => `
+        <div class="summary-row">
+          <span>${item.question}</span>
+          <strong>${item.answer}</strong>
+        </div>
+      `).join("")}
+
+      <div class="concierge-summary-actions">
+        <button type="button" class="concierge-choice concierge-whatsapp" id="sendConciergeWhatsapp">
+          المتابعة عبر واتساب
+        </button>
+
+        <button type="button" class="concierge-choice concierge-reset" id="resetConcierge">
+          البدء من جديد
+        </button>
+
+        <button type="button" class="concierge-choice concierge-cancel" id="cancelConcierge">
+          إغلاق
+        </button>
+      </div>
+    </div>
+  `;
+
+  conciergeProgressFill.style.width = "100%";
+  animateConciergeChange();
+
+  document.getElementById("sendConciergeWhatsapp").onclick = () => {
+    const message = `
+OO Concierge — اتجاه مشروع جديد
+
+${conciergeAnswers.map(item => `${item.question}: ${item.answer}`).join("\n")}
+
+تم إنشاؤه عبر مستشار Double OO.
+    `;
+
+    window.open(
+      `https://wa.me/966503355696?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
+  };
+
+  document.getElementById("resetConcierge").onclick = () => {
+    conciergeStep = 0;
+    conciergeAnswers = [];
+    conciergeProgressFill.style.width = "0%";
+    renderConciergeQuestion();
+  };
+
+  document.getElementById("cancelConcierge").onclick = closeConciergeModal;
+}
+
+openConcierge?.addEventListener("click", openConciergeModal);
+closeConcierge?.addEventListener("click", closeConciergeModal);
+
+conciergeBox?.addEventListener("wheel", (e) => {
+  e.stopPropagation();
+}, { passive: true });
+
+conciergeBox?.addEventListener("touchmove", (e) => {
+  e.stopPropagation();
+}, { passive: true });
+
+if (questionTitle && choicesContainer && conciergeProgressFill) {
+  renderConciergeQuestion();
+}

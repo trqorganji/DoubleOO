@@ -1145,8 +1145,11 @@ ${conciergeAnswers.map(item => `${item.question}: ${item.answer}`).join("\n")}
   document.getElementById("cancelConcierge").onclick = closeConciergeModal;
 }
 
-openConcierge?.addEventListener("click", openConciergeModal);
-closeConcierge?.addEventListener("click", closeConciergeModal);
+document.querySelectorAll("#openConcierge, .oo-concierge-button").forEach((button) => {
+  button.addEventListener("click", openConciergeModal);
+});closeConcierge?.addEventListener("click", closeConciergeModal);
+
+document.querySelector(".concierge-overlay")?.addEventListener("click", closeConciergeModal);
 
 conciergeBox?.addEventListener("wheel", (e) => {
   e.stopPropagation();

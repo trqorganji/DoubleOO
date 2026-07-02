@@ -3048,3 +3048,78 @@ body.concierge-open {
   opacity: 1 !important;
   visibility: visible !important;
 }
+
+/* Atelier Transition */
+.atelier-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.atelier-door {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: #050506;
+  transform: scaleX(0);
+  transition: transform .9s cubic-bezier(.77,0,.18,1);
+}
+
+.door-left {
+  left: 0;
+  transform-origin: left;
+}
+
+.door-right {
+  right: 0;
+  transform-origin: right;
+}
+
+.atelier-transition.active {
+  pointer-events: auto;
+}
+
+.atelier-transition.active .atelier-door {
+  transform: scaleX(1);
+}
+
+.atelier-center {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: .6s ease .45s;
+}
+
+.atelier-transition.active .atelier-center {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.atelier-center img {
+  width: 110px;
+  margin: 0 auto 28px;
+  filter: invert(1) brightness(1.4);
+}
+
+.atelier-center p {
+  color: #f7f2ea;
+  font-size: 24px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.atelier-center span {
+  color: rgba(247,242,234,.6);
+  font-size: 14px;
+}
+.atelier-center {
+  direction: rtl;
+}

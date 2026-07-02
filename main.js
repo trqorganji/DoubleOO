@@ -1151,3 +1151,24 @@ conciergeBox?.addEventListener("touchmove", (e) => {
 if (questionTitle && choicesContainer && conciergeProgressFill) {
   renderConciergeQuestion();
 }
+
+/* Atelier transition */
+document.querySelectorAll(".atelier-link").forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const href = link.href;
+    const transition = document.getElementById("atelierTransition");
+
+    if (!transition) {
+      window.location.href = href;
+      return;
+    }
+
+    transition.classList.add("active");
+
+    setTimeout(() => {
+      window.location.href = href;
+    }, 1300);
+  });
+});
